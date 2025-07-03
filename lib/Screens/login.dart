@@ -92,6 +92,7 @@ if (usuarioingresado.isEmpty|| contrasenaingresada.isEmpty){
               decoration: const InputDecoration(
                 labelText: 'Contraseña',
               ),
+               obscureText: true,
             ),
             const SizedBox(height: 20),
             ElevatedButton(

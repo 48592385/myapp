@@ -2,17 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:myapp/entities/class.dart';
-import 'package:myapp/providers.dart';
 
 class AddEquipoScreen extends ConsumerWidget {
   static const String name = 'addEquipo';
   const AddEquipoScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final name = ref.watch(equipoIngresado);
-    final imagen = ref.watch(imagenIngresada);
-    final descripcion = ref.watch(descripcionIngresada);
+  Widget build(BuildContext context, ref) {
+    String name = '';
+    String imagen = '';
+    String descripcion = '';
     TextEditingController controladorNombre = TextEditingController();
     TextEditingController controladorImagen = TextEditingController();
     TextEditingController controladorDescripcion = TextEditingController();
@@ -44,21 +43,30 @@ class AddEquipoScreen extends ConsumerWidget {
           final name = controladorNombre.text;
           final imagen = controladorImagen.text;
           final descripcion = controladorDescripcion.text;
-          if (name.isEmpty || imagen.isEmpty || descripcion.isEmpty) {
-            Text(
-              'No completaste todas las casillas',
-              style: TextStyle(color: Colors.red),
-            );         
-          }
-          else{
-          teams.add(Equiposeuropeos(teamName: name, teamImage: imagen, descripcion: descripcion));
-          context.push('/equipos');
+          if (imagen.isEmpty) {
+            controladorImagen.text =
+                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFQdGYCwWZp_ZleagUa8Gp3fu4QhqdBteEBA&s';
+            final imagen = controladorImagen.text;
+            teams.add(
+              Equiposeuropeos(
+                teamName: name,
+                teamImage: imagen,
+                descripcion: descripcion,
+              ),
+            );
+            context.push('/equipos');
+          } else {
+            teams.add(
+              Equiposeuropeos(
+                teamName: name,
+                teamImage: imagen,
+                descripcion: descripcion,
+              ),
+            );
+            context.push('/equipos');
           }
         },
-          child:
-          const Icon(Icons.add)
-          
-        
+        child: const Icon(Icons.add),
       ),
     );
   }

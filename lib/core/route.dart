@@ -1,6 +1,6 @@
-
 import 'package:myapp/Screens/addequipo.dart';
 import 'package:myapp/Screens/detalleequipo.dart';
+import 'package:myapp/Screens/editarequipo.dart';
 import 'package:myapp/Screens/equipos.dart';
 import 'package:myapp/Screens/home.dart';
 import 'package:myapp/Screens/login.dart';
@@ -29,16 +29,19 @@ final appRouter = GoRouter(routes: [
     GoRoute(
       name: DetalleEquipoScreen.name,
       path: '/detalle',
-      builder: (context, state) {
-        final equipo = state.extra as Equiposeuropeos;
-        return DetalleEquipoScreen(equipo: equipo);
-      },
-    ),
+      builder: (context, state) => DetalleEquipoScreen(),
+        ),
 GoRoute(
 name: AddEquipoScreen.name,
 path: '/addequipo',
 builder: (context, state) =>const AddEquipoScreen(),
-)
+),
+GoRoute(
+  name: EditarEquipo.name,
+  path: '/editarequipo',
+   builder: (context, state) => const EditarEquipo(),
+  )
+
   ],
 );
 

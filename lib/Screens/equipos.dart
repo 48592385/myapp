@@ -13,7 +13,7 @@ class EquiposScreen extends ConsumerWidget {
   Widget build(BuildContext context,ref) {
      final teams = ref.watch(teamsProvider);
     return Scaffold(
-      appBar: AppBar(title: Text('Tus datos')),
+      appBar: AppBar(title: Text('Lista de equipos')),
       body: ListView.builder(
         itemCount: teams.length,
         itemBuilder: (context, index) {
@@ -27,7 +27,8 @@ class EquiposScreen extends ConsumerWidget {
                 fit: BoxFit.cover,
           ),
             onTap: () {
-                context.push('/detalle', extra: teams[index]);
+              ref.read(equiposeleccionadoProvider.notifier).state = teams[index];
+                context.push('/detalle',);
               },
             ),
           ); // 
