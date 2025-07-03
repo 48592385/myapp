@@ -31,6 +31,7 @@ Usuario('Carlos', 'contraseña999', 'San Martín 800', 35),
   void login (){
    String usuarioingresado =  controladorUsuario.text;
    String contrasenaingresada =  controladorContrasena.text;
+   // ignore: unused_local_variable
    Usuario usuarioElegido;
    
    

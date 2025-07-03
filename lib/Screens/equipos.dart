@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/entities/class.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:myapp/providers.dart';
 
-class EquiposScreen extends StatelessWidget {
+class EquiposScreen extends ConsumerWidget {
   static const String name = 'equipos';
-  const EquiposScreen({ super.key,}); // ← Esto permite usar `const EquiposScreen()`
+  const EquiposScreen({
+    super.key,
+  }); 
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,ref) {
+     final teams = ref.watch(teamsProvider);
     return Scaffold(
       appBar: AppBar(title: Text('Tus datos')),
       body: ListView.builder(
@@ -15,13 +20,25 @@ class EquiposScreen extends StatelessWidget {
           return Card(
             child: ListTile(
               title: Text(teams[index].teamName),
-              subtitle: Image.network(teams[index].teamImage,width:100,
-               height:150,
-              fit: BoxFit.cover 
-),
+              leading: Image.network(
+                teams[index].teamImage,
+                width: 70,
+                height: 50,
+                fit: BoxFit.cover,
+          ),
+            onTap: () {
+                context.push('/detalle', extra: teams[index]);
+              },
             ),
-          );
+          ); // 
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.red,
+        onPressed: () {
+          context.push('/addequipo');
+        },
+        child: const Icon(Icons.add),
       ),
     );
   }

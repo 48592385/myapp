@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/entities/class.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class HomeScreen extends StatelessWidget {
+
+class HomeScreen extends ConsumerWidget {
   static const String name = 'home';
 
   final Usuario usuario;
@@ -9,7 +11,7 @@ class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key, required this.usuario});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(title: Text('Tus datos')),
       body: Column(
