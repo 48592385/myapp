@@ -10,20 +10,16 @@ class EditarEquipo extends ConsumerWidget {
   const EditarEquipo({super.key});
 
   @override
-  Widget build(BuildContext context, ref) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final equipo = ref.watch(equiposeleccionadoProvider);
-    TextEditingController controladorNombre = TextEditingController(
-      text: equipo.teamName,
-    );
-    TextEditingController controladorImagen = TextEditingController(
-      text: equipo.teamImage,
-    );
-    TextEditingController controladorDescripcion = TextEditingController(
-      text: equipo.descripcion,
-    );
-    String name = '';
-    String imagen = '';
-    String descripcion = '';
+
+    TextEditingController controladorNombre =
+        TextEditingController(text: equipo.teamName);
+    TextEditingController controladorImagen =
+        TextEditingController(text: equipo.teamImage);
+    TextEditingController controladorDescripcion =
+        TextEditingController(text: equipo.descripcion);
+
     return Scaffold(
       appBar: AppBar(title: Text('Editar ${equipo.teamName}')),
       body: Center(
@@ -34,26 +30,21 @@ class EditarEquipo extends ConsumerWidget {
               controller: controladorNombre,
               decoration: const InputDecoration(labelText: 'Nombre del equipo'),
             ),
-
             TextField(
               controller: controladorImagen,
               decoration: const InputDecoration(labelText: 'Imagen del equipo'),
             ),
-
             TextField(
               controller: controladorDescripcion,
-              decoration: const InputDecoration(
-                labelText: 'Descripción del equipo',
-              ),
+              decoration: const InputDecoration(labelText: 'Descripción del equipo'),
             ),
-
-            SizedBox(height: 20),
-
+            const SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () {
-                final name = controladorNombre.text;
-                final imagen = controladorImagen.text;
-                final descripcion = controladorDescripcion.text;
+              onPressed: () async {
+                final name = controladorNombre.text.trim();
+                final imagen = controladorImagen.text.trim();
+                final descripcion = controladorDescripcion.text.trim();
+
                 if (name.isEmpty || imagen.isEmpty || descripcion.isEmpty) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
@@ -63,18 +54,27 @@ class EditarEquipo extends ConsumerWidget {
                     ),
                   );
                 } else {
-                  equipo.teamName = name;
-                  equipo.teamImage = imagen;
-                  equipo.descripcion = descripcion;
+                  final equipoActualizado = Equiposeuropeos(
+                    teamName: name,
+                    teamImage: imagen,
+                    descripcion: descripcion,
+                  );
+
+                  // Guardar en Firestore con el provider
+                  await ref.read(teamsProvider.notifier).updateTeam(
+                        ref.read(equiposeleccionadoProvider),
+                        equipoActualizado,
+                      );
+
+                  // Actualizar el seleccionado localmente
+                  ref.read(equiposeleccionadoProvider.notifier).state = equipoActualizado;
+
+                  // Volver a la lista
                   context.push('/equipos');
-
-
                 }
               },
-              child: Text('Guardar'),
+              child: const Text('Guardar'),
             ),
-
-            // Podés agregar campos de edición acá
           ],
         ),
       ),

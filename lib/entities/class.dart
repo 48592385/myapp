@@ -1,21 +1,40 @@
-class Usuario {
-  String name;
-  String password;
-  String direccion;
-  int edad;
-
-  Usuario(this.name, this.password, this.direccion, this.edad);
-}
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Equiposeuropeos {
-  String teamName;
-  String teamImage;
-  // Suggested code may be subject to a license. Learn more: ~LicenseLog:3329990825.
-  String descripcion;
+  final String teamName;
+  final String teamImage;
+  final String descripcion;
 
-  Equiposeuropeos({required this.teamName, required this.teamImage, required this.descripcion});
+  Equiposeuropeos({
+    required this.teamName,
+    required this.teamImage,
+    required this.descripcion,
+  });
+
+  // Convertir a Map para Firestore
+  Map<String, dynamic> toFirestore() {
+    return {
+      'teamName': teamName,
+      'teamImage': teamImage,
+      'descripcion': descripcion,
+    };
+  }
+
+  // Convertir de Firestore a Equiposeuropeos
+  factory Equiposeuropeos.fromFirestore(
+    DocumentSnapshot<Map<String, dynamic>> snapshot,
+    SnapshotOptions? options,
+  ) {
+    final data = snapshot.data();
+    return Equiposeuropeos(
+      teamName: data?['teamName'] as String? ?? '',
+      teamImage: data?['teamImage'] as String? ?? '',
+      descripcion: data?['descripcion'] as String? ?? '',
+    );
+  }
 }
 
+// Lista de ejemplo inicial
 List<Equiposeuropeos> teams = [
   Equiposeuropeos(
     teamName: 'Manchester City',

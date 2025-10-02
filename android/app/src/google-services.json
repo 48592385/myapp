@@ -1,0 +1,29 @@
+
+  "project_info": {
+    "project_number": "781565998473",
+    "project_id": "dappp-7d2bc",
+    "storage_bucket": "dappp-7d2bc.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:781565998473:android:26c88450a9a99269d0dd58",
+        "android_client_info": {
+          "package_name": "com.teamList.myapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDom272wFAX0zqzWwTYTvlPHu9eSXG5nGM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

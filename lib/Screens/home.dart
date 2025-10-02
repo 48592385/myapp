@@ -1,32 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/entities/class.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-
-class HomeScreen extends ConsumerWidget {
+class HomeScreen extends StatelessWidget {
   static const String name = 'home';
 
-  final Usuario usuario;
-
-  const HomeScreen({super.key, required this.usuario});
+  const HomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Tus datos')),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text('Bienvenido/a ${usuario.name}', style: TextStyle(fontSize: 30)),
-          SizedBox(height: 40),
-          Text(
-            'Dirección: ${usuario.direccion}',
-            style: TextStyle(fontSize: 30),
-          ),
-          SizedBox(height: 20),
-          Text('Edad: ${usuario.edad}', style: TextStyle(fontSize: 30)),
-        ],
+      appBar: AppBar(title: const Text('Bienvenido')),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [
+            Text(
+              '¡Has iniciado sesión correctamente!',
+              style: TextStyle(fontSize: 24),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
       ),
     );
   }
 }
+
